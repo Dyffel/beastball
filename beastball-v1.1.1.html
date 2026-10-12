@@ -1,0 +1,402 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07182b"><title>BEASTBALL v1.1.1 — Living Tournament Pitch</title><style>
+:root{--gold:#ffd66e;--cyan:#49e9ff;--text:#f2fbff;--muted:#b2d1e1}*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,sans-serif;color:var(--text);background:#061629}button{font:inherit;cursor:pointer;touch-action:manipulation}button:disabled{opacity:.4;cursor:default}#app{min-height:100dvh;background:radial-gradient(ellipse at 50% 18%,#09647a 0,#083451 42%,#061629 86%);overflow:hidden}.scene{min-height:100dvh;max-width:760px;margin:auto;padding:18px 16px max(24px,env(safe-area-inset-bottom));display:none;flex-direction:column;justify-content:center;gap:16px}.scene.active{display:flex}.brand{text-align:center;font-size:clamp(30px,8vw,52px);font-weight:1000;letter-spacing:-1.5px;color:var(--gold);text-shadow:0 4px #8d5129,0 0 35px #ffd76c55}.tag{text-align:center;letter-spacing:.23em;font-size:12px;font-weight:800;color:#b1eaf6}.panel{background:linear-gradient(160deg,#06415d,#06213a);border:1.5px solid #299db9;border-radius:24px;padding:20px;box-shadow:0 12px 35px #0005}.center{text-align:center}.btn{border:2px solid #ffe8a3;border-radius:17px;padding:14px 18px;font-weight:1000;font-size:17px;background:linear-gradient(#ffe997,#ffbc25 65%,#dc790e);color:#33200a;box-shadow:0 5px 0 #85501c;width:100%}.btn.alt{border-color:#6ce9ff;background:linear-gradient(#00d9f3,#007da8);color:white;box-shadow:0 5px 0 #00475e}.btn:active{transform:translateY(3px);box-shadow:none}.sub{color:var(--muted);line-height:1.5}.hero{font-size:80px;text-align:center;filter:drop-shadow(0 8px 20px #0007)}h1,h2,p{margin:0}h2{text-align:center;color:var(--gold);font-size:clamp(23px,6vw,32px)}.buttons{display:grid;gap:12px}.small{font-size:13px;color:#b8dce9;text-align:center}.card-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:stretch}.card{grid-column:span 2;position:relative;min-width:0;aspect-ratio:.72;perspective:700px;padding:0;background:none;border:0;color:white}.card:nth-child(4){grid-column:2/span 2}.card:nth-child(5){grid-column:4/span 2}.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.2,.75,.2,1)}.card.revealed .card-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border:2px solid #64d8ee;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;box-shadow:inset 0 0 25px #20eaff22,0 6px 15px #0006}.back{background:radial-gradient(circle,#126a88,#052842 72%);border-color:#d8ad5b}.back .q{font-size:clamp(48px,13vw,90px);font-weight:1000;color:#ffdb76;text-shadow:0 4px #70401b}.front{transform:rotateY(180deg);background:linear-gradient(150deg,#0c5471,#061a34);padding:5px 2px;gap:3px}.rarity{font-size:clamp(9px,2.4vw,13px);letter-spacing:.04em;font-weight:900}.animal{font-size:clamp(33px,9vw,65px);line-height:1.25;filter:drop-shadow(0 3px 4px #0009)}.name{font-weight:900;font-size:clamp(12px,3vw,18px);text-align:center}.role{font-size:clamp(10px,2.6vw,14px);color:#d0e9ef}.power{color:var(--gold);font-size:clamp(16px,5vw,27px);font-weight:1000}.rarity-Common .front{border-color:#86c9d8}.rarity-Uncommon .front{border-color:#40d8ff}.rarity-Rare .front{border-color:#bf83ff;box-shadow:inset 0 0 20px #a85bff66}.rarity-Epic .front{border-color:#ffae41;box-shadow:inset 0 0 22px #ffb23366}.rarity-Legendary .front{border-color:#ffe272;box-shadow:0 0 15px #ffdb6a8a}.rarity-Mythic .front{border-color:#ff4b99;box-shadow:0 0 19px #ff4b99aa}.card.selected .face.front{outline:4px solid #65ffb6;outline-offset:-5px}.check{display:none;position:absolute;z-index:2;top:5px;right:7px;color:#5dffae;font-size:25px;font-weight:900}.card.selected .check{display:block}.status{border:1px solid #299db9;border-radius:15px;background:#051f36;padding:12px;text-align:center;min-height:48px;font-size:14px;line-height:1.4}.bar{display:flex;justify-content:space-between;gap:12px;align-items:center}.pill{border:1px solid #45bbd1;border-radius:30px;padding:8px 11px;font-size:12px;font-weight:900;white-space:nowrap}.lineups{display:grid;grid-template-columns:1fr 1fr;gap:12px}.team{border:1px solid #2d9bbb;border-radius:16px;background:#052b42;padding:10px}.team.bot{border-color:#e7798b}.team h3{margin:0 0 10px;font-size:14px;text-align:center}.lineup-item{display:flex;align-items:center;gap:6px;margin:7px 0;font-size:13px}.lineup-item span:first-child{font-size:27px}.lineup-item b{color:var(--gold)}.field-wrap{position:relative;width:100%;aspect-ratio:1.62;border:5px solid #e8bd64;border-radius:15%/21%;background:repeating-linear-gradient(90deg,#008e7b 0 12.5%,#00a184 12.5% 25%);box-shadow:inset 0 0 0 7px #ffffff16,0 12px 35px #0008;overflow:hidden}.midline{position:absolute;top:0;bottom:0;left:50%;border-left:2px dashed #a2fff8aa}.circle{position:absolute;left:50%;top:50%;width:24%;aspect-ratio:1;border:2px solid #b6fff8aa;border-radius:50%;transform:translate(-50%,-50%)}.goal{position:absolute;top:36%;height:28%;width:3.5%;border:4px solid white;background:#c3eaf866}.goal.left{left:0}.goal.right{right:0}.box{position:absolute;top:25%;height:50%;width:15%;border:2px solid #b9f8f8a3}.box.left{left:0}.box.right{right:0}.player{position:absolute;left:0;top:0;transform:translate(-50%,-50%);text-align:center;transition:left .85s ease-in-out,top .85s ease-in-out;z-index:3;min-width:35px;pointer-events:none}.player .icon{font-size:clamp(23px,7vw,43px);line-height:1.1;filter:drop-shadow(0 3px 2px #0019)}.player .label{font-size:9px;font-weight:1000;letter-spacing:.02em;text-shadow:0 1px 3px #001,0 0 3px #001}.player.you .icon{filter:drop-shadow(0 0 5px #3af3ff)}.player.bot .icon{filter:drop-shadow(0 0 5px #ff5d72)}.ball{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(22px,6vw,36px);z-index:5;transition:left .8s ease-in-out,top .8s ease-in-out;filter:drop-shadow(0 3px 3px #0009)}.score{text-align:center;color:var(--gold);font-weight:1000;font-size:clamp(38px,10vw,62px)}.score small{font-size:14px;color:white;vertical-align:middle}.comment{font-size:clamp(16px,4.6vw,23px);font-weight:900;text-align:center;min-height:56px;display:flex;align-items:center;justify-content:center}.feed{font-size:12px;color:#a7dce7;display:flex;flex-wrap:wrap;justify-content:center;gap:5px;min-height:25px}.feed span{border:1px solid #268cab;padding:4px 7px;border-radius:8px}.result-medal{font-size:70px;text-align:center}.result-title{font-size:clamp(32px,10vw,58px);font-weight:1000;text-align:center;color:var(--gold)}@media(max-width:370px){.scene{padding:12px 10px;gap:11px}.panel{padding:14px}.card-grid{gap:7px}.player .icon{font-size:23px}.player .label{font-size:8px}}@media(min-width:600px){.card-grid{max-width:510px;margin:auto;width:100%}.field-wrap{max-width:700px;margin:auto}}@media(prefers-reduced-motion:reduce){.card-inner,.player,.ball{transition-duration:.05s}}
+
+/* v0.4: restored compact stadium main menu */
+.vintage-menu{border:2px solid #d3b36a;background:linear-gradient(155deg,#061a31,#06334b);padding:24px 14px 20px}
+.vintage-menu .brand{font-size:clamp(39px,10vw,62px);line-height:1.1;margin-top:9px}
+.mini-pitch{margin:22px auto 14px;max-width:530px;width:100%;aspect-ratio:1.65;border:6px solid #e2b65c;border-radius:22%/27%;display:flex;align-items:center;justify-content:space-around;background:linear-gradient(90deg,#057968,#049782 50%,#057968);position:relative;overflow:hidden}
+.mini-pitch:before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed #a7f5e1aa}
+.mini-pitch span{font-size:clamp(47px,12vw,85px);z-index:1;filter:drop-shadow(0 4px 4px #0029)}
+.rarity-Legendary .front{border:3px solid #ffe17d;background:radial-gradient(circle at 50% 45%,#9e4a17 0%,#3d1732 44%,#1b122e 90%);animation:phoenixAura 2.1s ease-in-out infinite alternate;box-shadow:0 0 20px #ffbb33aa,inset 0 0 23px #ffdf7a77}
+.rarity-Legendary .front:before{content:"✦ 🔥 ✦";position:absolute;top:26%;font-size:12px;opacity:.45;animation:fireDrift 2s ease-in-out infinite alternate}
+.rarity-Legendary .animal{filter:drop-shadow(0 0 10px #ffb12d) drop-shadow(0 0 8px #ff5120);animation:phoenixFloat 1.7s ease-in-out infinite alternate}
+.rarity-Legendary.revealed{filter:drop-shadow(0 0 11px #ffbc36)}
+@keyframes phoenixAura{from{box-shadow:0 0 9px #ffad3f99,inset 0 0 18px #f6b02b66}to{box-shadow:0 0 25px #ffdf76,inset 0 0 35px #ff6c28aa}}
+@keyframes phoenixFloat{from{transform:translateY(3px) scale(.96)}to{transform:translateY(-5px) scale(1.08)}}
+@keyframes fireDrift{from{transform:translateY(4px);opacity:.2}to{transform:translateY(-7px);opacity:.65}}
+.phoenix-reveal{animation:phoenixReveal .9s ease-out}
+@keyframes phoenixReveal{0%{filter:brightness(3) drop-shadow(0 0 40px gold)}100%{filter:brightness(1) drop-shadow(0 0 11px #ffbc36)}}
+.player.sentoff{display:none}.player .card-mark{filter:drop-shadow(0 2px 3px #000)}
+.player .card-mark{position:absolute;right:-6px;top:-7px;font-size:15px}
+@media(prefers-reduced-motion:reduce){.rarity-Legendary .front,.rarity-Legendary .animal,.phoenix-reveal{animation:none}}
+
+/* Cinematic referee overlays, free kicks and VAR */
+.ref-overlay{position:absolute;inset:0;z-index:12;display:none;align-items:center;justify-content:center;flex-direction:column;gap:8px;background:#001524a8;text-align:center;padding:12px;pointer-events:none}
+.ref-overlay.show{display:flex;animation:refAppear .28s ease-out}
+.ref-title{font-size:clamp(19px,5vw,34px);font-weight:1000;color:#ffe080;text-shadow:0 3px 8px #000}
+.ref-sub{font-size:clamp(12px,3vw,17px);font-weight:800;color:white;max-width:95%;text-shadow:0 2px 5px #000}
+.ref-timer{font-size:clamp(24px,7vw,43px);font-weight:1000;color:#6df1ff}
+.penalty-spot{position:absolute;width:8px;height:8px;border-radius:50%;background:#f5ffff;top:50%;z-index:1;display:none;transform:translate(-50%,-50%)}
+.penalty-spot.show{display:block}
+@keyframes refAppear{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+
+/* Online multiplayer */
+.online-input{width:100%;padding:13px;background:#031c30;color:white;border:2px solid #3aa6bf;border-radius:12px;font:inherit;margin:5px 0 11px}
+.online-card{border:2px solid #338baa;background:#07324a;border-radius:15px;padding:12px;margin:7px 0}
+.online-card b{color:#ffe18a}.online-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.online-choice{border:2px solid #2f8caa;border-radius:14px;background:#072e49;color:white;padding:11px 4px;text-align:center;font:inherit;min-height:112px}
+.online-choice .em{font-size:39px}.online-choice.picked{border-color:#6cffb5;background:#075d55}
+.online-choice .sm{font-size:11px;color:#b8deed}.online-choice:disabled{opacity:.7}
+.online-banner{background:#072d49;border:1px solid #46a4bf;border-radius:14px;padding:12px;text-align:center}
+.online-badge{font-size:28px;color:#ffe28a;font-weight:1000;letter-spacing:.12em}
+.online-error{color:#ffb6b6;min-height:20px;font-size:13px;text-align:center}
+.online-field{position:relative;aspect-ratio:1.6;border:5px solid #e5bf69;border-radius:14%/19%;overflow:hidden;background:repeating-linear-gradient(90deg,#008b72 0 12.5%,#00a282 12.5% 25%)}
+.online-field:before{content:'';position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed #d1fff5}
+.online-player{position:absolute;font-size:clamp(23px,7vw,44px);transition:left .7s,top .7s;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 3px #000)}
+.online-ball{position:absolute;left:50%;top:50%;font-size:30px;transform:translate(-50%,-50%);transition:left .7s,top .7s}
+.online-join-label{display:block;text-align:center;font-size:13px;font-weight:900;letter-spacing:.12em;color:#b7e9f6;margin-top:14px;margin-bottom:6px}#onCode{text-align:center;font-size:22px;font-weight:900;letter-spacing:.24em}#onCreate{margin-bottom:8px}
+/* v0.9: original stadium visuals and extended tournament replay */
+#onChoices.online-reward-grid .card{grid-column:span 3}
+#onlineDraft .card-grid{margin:12px 0 4px}
+#onlineDraft .card{touch-action:manipulation}
+#onlineGame .field-wrap{flex-shrink:0}
+#onGameSub.feed{margin-top:12px}
+.rules-dialog{width:min(92vw,480px);max-height:85dvh;overflow:auto;border:2px solid #40cde4;border-radius:24px;padding:20px;background:linear-gradient(160deg,#06425b,#06192d);color:white;box-shadow:0 15px 70px #000d}.rules-dialog::backdrop{background:#001b2dc9;backdrop-filter:blur(5px)}.rules-heading{text-align:center;font-weight:1000;color:#ffd66e;font-size:24px;margin-bottom:15px}.rules-step{padding:12px 13px;border:1px solid #287d9b;border-radius:14px;margin-bottom:10px;background:#06263d}.rules-step b{color:#ffd66e;font-size:14px}.rules-step p{font-size:13px;line-height:1.5;color:#d3e8f0;margin-top:5px}.rules-dialog .btn{margin-top:6px}/* Online mystery cards: 2D faces avoid iOS in-app browser 3D/backface rendering bugs. */
+#onChoices .card{perspective:none;isolation:isolate}
+#onChoices .card-inner{transform:none!important;transform-style:flat;transition:none}
+#onChoices .face{backface-visibility:visible;transform:none!important}
+#onChoices .card .back{display:flex}
+#onChoices .card .front{display:none}
+#onChoices .card.revealed .back{display:none}
+#onChoices .card.revealed .front{display:flex}
+#onChoices .card.selected .front{outline:4px solid #65ffb6;outline-offset:-5px}
+
+/* v1.1.1: iOS in-app browser-safe tournament cards. Explicit dimensions, no 3D layers. */
+#onChoices{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:10px!important;width:100%!important;align-items:stretch!important;margin:12px 0 4px!important}
+#onChoices .online-mystery{display:flex!important;grid-column:span 2;position:relative;align-items:center;justify-content:center;flex-direction:column;width:100%!important;min-width:0!important;height:auto!important;min-height:145px!important;aspect-ratio:0.72!important;padding:5px 2px;border:2px solid #d8ad5b;border-radius:14px;background:radial-gradient(circle,#126a88,#052842 72%);color:white;box-shadow:inset 0 0 25px #20eaff22,0 6px 15px #0006;overflow:hidden;-webkit-appearance:none;appearance:none;touch-action:manipulation;cursor:pointer}
+#onChoices .online-mystery:nth-child(4){grid-column:2/span 2}
+#onChoices .online-mystery:nth-child(5){grid-column:4/span 2}
+#onChoices.online-reward-grid .online-mystery{grid-column:span 3}
+#onChoices .online-mystery .mystery-q{font-size:clamp(48px,13vw,90px);font-weight:1000;color:#ffdb76;text-shadow:0 4px #70401b;line-height:1.15}
+#onChoices .online-mystery .mystery-sub{font-size:11px;color:#b8dce9}
+#onChoices .online-mystery.revealed{background:linear-gradient(150deg,#0c5471,#061a34);border-color:#64d8ee;gap:3px}
+#onChoices .online-mystery.rarity-Rare.revealed{border-color:#bf83ff}
+#onChoices .online-mystery.rarity-Mythic.revealed{border-color:#ff4b99}
+#onChoices .online-mystery.rarity-Legendary.revealed{border:3px solid #ffe17d;background:radial-gradient(circle at 50% 45%,#9e4a17,#3d1732 55%,#1b122e);box-shadow:0 0 17px #ffbb33aa}
+#onChoices .online-mystery.selected{outline:4px solid #65ffb6;outline-offset:-5px}
+#onChoices .online-mystery .online-check{position:absolute;top:4px;right:6px;font-size:22px;font-weight:900;color:#5dffae}
+#onChoices .online-mystery .rarity{font-size:clamp(9px,2.4vw,13px)}
+#onChoices .online-mystery .animal{font-size:clamp(32px,9vw,65px)}
+#onChoices .online-mystery .name{font-size:clamp(12px,3vw,18px)}
+#onChoices .online-mystery .role{font-size:clamp(10px,2.6vw,14px)}
+#onChoices .online-mystery .power{font-size:clamp(16px,5vw,27px)}
+@media(max-width:370px){#onChoices{gap:7px!important}#onChoices .online-mystery{min-height:125px!important}}
+</style></head><body><main id="app">
+<section id="menu" class="scene active"><div class="panel center vintage-menu"><div class="tag">WELCOME TO THE ANIMAL ARENA</div><div class="mini-pitch"><span>🦈</span><span>⚽</span><span>🦁</span></div><div class="brand">BEASTBALL</div><div class="tag">UNBOX · DRAFT · SCORE</div></div><div class="buttons"><button class="btn" id="onlineBtn">🌐 PRIVATE TOURNAMENT (2–10)</button><button class="btn" id="start">🎁 START MATCH</button><button class="btn alt" id="rules">📖 HOW TO PLAY</button></div><p class="small">v1.1.1 · Living tournament pitch · First to 3 goals</p></section>
+<section id="draft" class="scene"><div class="brand">⚽ BEASTBALL</div><div class="bar"><strong id="draftPhase">MYSTERY PACK</strong><span class="pill" id="progress">0 / 5 REVEALED</span></div><h2 id="draftTitle">Flip your five cards!</h2><p class="small" id="draftHint">Tap each mystery card to reveal it.</p><div id="cards" class="card-grid"></div><div class="status" id="draftStatus">Your pack is waiting...</div><button id="confirm" class="btn" disabled>⚽ CONFIRM TEAM</button></section>
+<section id="versus" class="scene"><div class="brand">⚽ BEASTBALL</div><h2>YOUR TEAM VS BOT</h2><p class="small">Your players take the field. The bot picked its own team!</p><div class="lineups"><div class="team"><h3>🔵 YOUR TEAM</h3><div id="yourList"></div></div><div class="team bot"><h3>🔴 BOT TEAM</h3><div id="botList"></div></div></div><div class="panel center"><p class="sub">Watch your animals run, pass, tackle, dribble and shoot. The match plays automatically.</p></div><button class="btn" id="kickoff">⚽ KICK OFF!</button></section>
+<section id="match" class="scene"><div class="bar"><div><div class="brand" style="font-size:28px">⚽ BEASTBALL</div><div class="tag" style="font-size:9px">THE LIVING PITCH</div></div><span class="pill" id="attackCount">KICKOFF</span></div><div class="score"><small>YOU </small><span id="score">0 : 0</span><small> BOT</small></div><div class="field-wrap" id="field"><div class="midline"></div><div class="circle"></div><div class="box left"></div><div class="box right"></div><div class="goal left"></div><div class="goal right"></div><div id="ball" class="ball">⚽</div><div id="penaltySpot" class="penalty-spot"></div><div id="refOverlay" class="ref-overlay" aria-live="polite"><div class="ref-title" id="refTitle"></div><div class="ref-sub" id="refSub"></div><div class="ref-timer" id="refTimer"></div></div></div><div class="panel"><div id="comment" class="comment">Kickoff!</div><div id="feed" class="feed" aria-live="polite"></div></div><p class="small">First to 3 goals wins · Fully automatic · Possession matters</p></section>
+<section id="result" class="scene"><div class="brand">⚽ BEASTBALL</div><div class="tag">FULL TIME</div><div class="panel center"><div id="medal" class="result-medal">🏆</div><div id="winner" class="result-title">YOU WIN!</div><div class="score" id="finalScore">2 : 1</div><p class="sub" id="resultText" style="margin:14px 0 18px">What a match!</p><div id="mvp" class="status"></div><div class="buttons" style="margin-top:18px"><button class="btn" id="again">🎁 PLAY AGAIN</button><button class="btn alt" id="home">🏠 MAIN MENU</button></div></div></section>
+
+<section id="onlineSetup" class="scene"><div class="brand">🌐 BEASTBALL</div><h2>PRIVATE TOURNAMENT</h2><div class="panel"><label>Your nickname<input id="onName" class="online-input" maxlength="10" minlength="2" placeholder="2–10 characters"></label><p class="small">Create a lobby instantly, or enter a friend’s six-digit invite code below. No setup needed!</p></div><div class="buttons"><button class="btn" id="onCreate">🏠 CREATE LOBBY</button><label class="online-join-label" for="onCode">JOIN AN EXISTING LOBBY</label><input id="onCode" class="online-input" maxlength="6" minlength="6" inputmode="numeric" pattern="[0-9]{6}" autocomplete="one-time-code" placeholder="Enter 6-digit code"><button class="btn alt" id="onJoin">🔑 JOIN LOBBY</button><button class="btn alt" id="onBack">⬅ MAIN MENU</button></div><div id="onError" class="online-error"></div></section>
+<section id="onlineLobby" class="scene"><div class="brand">🏆 BEASTBALL</div><h2>PRIVATE LOBBY</h2><div class="online-banner">INVITE CODE<div id="onRoomCode" class="online-badge"></div><p class="small">Share this code with friends</p></div><div id="onPeople" class="panel"></div><div id="onLobbyInfo" class="status"></div><button id="onStart" class="btn">🏁 START TOURNAMENT</button><button id="onLeave" class="btn alt">⬅ LEAVE LOBBY</button><div id="onLobbyError" class="online-error"></div></section>
+<section id="onlineDraft" class="scene"><div class="brand">🎁 BEASTBALL</div><h2 id="onDraftTitle">MYSTERY PACK</h2><div id="onDraftInfo" class="status"></div><div id="onChoices" class="card-grid"></div><div id="onTeam" class="panel"></div><button id="onSubmit" class="btn" disabled>⚽ LOCK TEAM</button><div id="onDraftError" class="online-error"></div></section>
+<section id="onlineVersus" class="scene"><div class="brand">⚽ BEASTBALL</div><h2 id="onVersusTitle">MATCH DAY</h2><p class="small">Both teams are ready. First to three goals wins!</p><div class="lineups"><div class="team"><h3 id="onVersusMine">🔵 YOUR TEAM</h3><div id="onVersusMineCards"></div></div><div class="team bot"><h3 id="onVersusRival">🔴 RIVAL TEAM</h3><div id="onVersusRivalCards"></div></div></div><div class="panel center"><p class="sub">The full match plays automatically with tackles, saves, passes, fouls and goals.</p></div><button id="onVersusKick" class="btn">⚽ KICK OFF!</button></section>
+<section id="onlineGame" class="scene"><div class="bar"><div><div class="brand" style="font-size:28px">⚽ BEASTBALL</div><div class="tag" style="font-size:9px">THE LIVING PITCH</div></div><span class="pill" id="onGamePhase">KICKOFF</span></div><h2 id="onGameTitle">MATCH DAY</h2><div class="score"><small id="onMyName">YOU </small><span id="onScore">0 : 0</span><small id="onOpponentName"> RIVAL</small></div><div id="onPitch" class="field-wrap"><div class="midline"></div><div class="circle"></div><div class="box left"></div><div class="box right"></div><div class="goal left"></div><div class="goal right"></div><div id="onBall" class="ball">⚽</div><div id="onPenaltySpot" class="penalty-spot"></div><div id="onRefOverlay" class="ref-overlay"><div id="onRefTitle" class="ref-title"></div><div id="onRefSub" class="ref-sub"></div><div id="onRefTimer" class="ref-timer"></div></div></div><div class="panel"><div id="onGameComment" class="comment">Kickoff!</div><div id="onGameSub" class="feed"></div></div><p class="small">First to 3 goals wins · Fully automatic · Possession matters</p><button id="onContinue" class="btn" style="display:none">🏆 TOURNAMENT BRACKET</button></section>
+<section id="onlineBracket" class="scene"><div class="brand">🏆 BEASTBALL</div><h2 id="onBracketTitle">TOURNAMENT</h2><div id="onBracketInfo" class="status"></div><div id="onBracketGames" class="panel"></div><button id="onNext" class="btn" style="display:none">🎁 NEXT ROUND · +2 CARDS</button><button id="onReturn" class="btn alt">🏠 MAIN MENU</button></section>
+</main><dialog id="rulesDialog" class="rules-dialog"><div class="rules-heading">📖 HOW TO PLAY</div><div class="rules-step"><b>🎁 1. OPEN YOUR PACK</b><p>Reveal five unique mystery animal cards.</p></div><div class="rules-step"><b>🐾 2. BUILD YOUR TEAM</b><p>Choose exactly three animals. Every card has a fixed rarity, role and power. Phoenix can play any role.</p></div><div class="rules-step"><b>⚽ 3. WATCH THE MATCH</b><p>Your animals automatically pass, dribble, tackle, shoot and save. The goalkeeper keeps possession after a save.</p></div><div class="rules-step"><b>🏆 4. WIN THE GAME</b><p>First to three goals wins! Fouls, cards, VAR and penalties can happen.</p></div><button class="btn alt" id="closeRules">GOT IT ✓</button></dialog><script>
+'use strict';
+const $=id=>document.getElementById(id),wait=ms=>new Promise(r=>setTimeout(r,ms));
+const scenes=['menu','draft','versus','match','result','onlineSetup','onlineLobby','onlineDraft','onlineVersus','onlineGame','onlineBracket'];
+function scene(id){scenes.forEach(x=>$(x).classList.toggle('active',x===id));window.scrollTo(0,0)}
+const roster=[
+ ['Butterfly','🦋','Common','Attacker',42],['Rabbit','🐇','Common','Attacker',48],
+ ['Turtle','🐢','Common','Defender',47],['Crab','🦀','Common','Defender',51],
+ ['Frog','🐸','Common','Goalkeeper',45],['Penguin','🐧','Common','Goalkeeper',49],
+ ['Lion','🦁','Uncommon','Attacker',64],['Eagle','🦅','Uncommon','Attacker',61],
+ ['Gorilla','🦍','Uncommon','Defender',66],['Wolf','🐺','Uncommon','Defender',62],
+ ['Shark','🦈','Uncommon','Goalkeeper',63],['Octopus','🐙','Uncommon','Goalkeeper',59],
+ ['Cheetah','🐆','Rare','Attacker',76],['Crocodile','🐊','Rare','Defender',78],['Rhino','🦏','Rare','Goalkeeper',79],
+ ['Unicorn','🦄','Mythic','Attacker',93],['Dragon','🐉','Mythic','Defender',95],
+ ['Phoenix','🐦‍🔥','Legendary','All',99]
+].map(([name,emoji,rarity,role,power])=>({name,emoji,rarity,role,power}));
+const weights=[['Common',50],['Uncommon',30],['Rare',10],['Mythic',7],['Legendary',3]];
+const slots=['Attacker','Defender','Goalkeeper'];
+const random=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)];
+function newPack(){const pool=[...roster],pack=[];for(let i=0;i<5;i++){let valid=weights.filter(([r])=>pool.some(c=>c.rarity===r));let sum=valid.reduce((a,x)=>a+x[1],0),roll=Math.random()*sum,rarity=valid[0][0];for(const [r,w] of valid){roll-=w;if(roll<0){rarity=r;break}}let options=pool.filter(c=>c.rarity===rarity),card=pick(options);pack.push(card);pool.splice(pool.indexOf(card),1)}return pack}
+let pack=[],revealed=new Set(),selected=new Set(),yTeam=[],bTeam=[],running=false;
+function start(){if(running)return;pack=newPack();revealed.clear();selected.clear();$('draftPhase').textContent='MYSTERY PACK';$('draftTitle').textContent='Flip your five cards!';$('draftHint').textContent='Tap each mystery card to reveal it.';$('draftStatus').textContent='Five unique cards. No rerolls!';drawCards();scene('draft')}
+function drawCards(){let wrap=$('cards');wrap.replaceChildren();pack.forEach((c,i)=>{let el=document.createElement('button');el.className='card rarity-'+c.rarity+(revealed.has(i)?' revealed':'')+(selected.has(i)?' selected':'');el.type='button';el.setAttribute('aria-label',revealed.has(i)?`${c.rarity} ${c.name} ${c.role} ${c.power} power`:`Reveal card ${i+1}`);el.innerHTML=`<div class="card-inner"><div class="face back"><div class="q">?</div><div class="small">MYSTERY</div></div><div class="face front"><div class="rarity">${c.rarity.toUpperCase()}</div><div class="animal">${c.emoji}</div><div class="name">${c.name}</div><div class="role">${c.role==='All'?'ALL ROLES':c.role}</div><div class="power">${c.power} ⚡</div></div></div><span class="check">✓</span>`;el.onclick=()=>tap(i);wrap.append(el)});$('progress').textContent=revealed.size<5?`${revealed.size} / 5 REVEALED`:`${selected.size} / 3 SELECTED`;$('confirm').disabled=selected.size!==3}
+function tap(i){if(!revealed.has(i)){revealed.add(i);let el=$('cards').children[i],c=pack[i];el.classList.add('revealed');if(c.name==='Phoenix'){el.classList.add('phoenix-reveal');$('draftStatus').textContent='🔥🐦‍🔥 LEGENDARY PHOENIX! 99 POWER · ALL POSITIONS!'}else $('draftStatus').textContent=`${c.rarity.toUpperCase()}! ${c.emoji} ${c.name} · ${c.role} · ${c.power} power`;$('progress').textContent=`${revealed.size} / 5 REVEALED`;if(revealed.size===5){setTimeout(()=>{$('draftPhase').textContent='TEAM SELECTION';$('draftTitle').textContent='Choose your best three!';$('draftHint').textContent='Tap three revealed cards to build your team.';$('draftStatus').textContent='All five revealed! Select exactly three.';$('progress').textContent='0 / 3 SELECTED'},800)}return}if(revealed.size!==5)return;if(selected.has(i))selected.delete(i);else if(selected.size<3)selected.add(i);else{$('draftStatus').textContent='Deselect a card before choosing another.';return}drawCards();$('draftStatus').textContent=selected.size===3?'Your team is ready!':`Select ${3-selected.size} more card(s).`}
+function effective(c,slot){return c.power*(c.role===slot||c.role==='All'?1:.68)}
+function fitTeam(cards){let best=null,bestScore=-Infinity;for(let a=0;a<3;a++)for(let b=0;b<3;b++)if(b!==a)for(let d=0;d<3;d++)if(d!==a&&d!==b){let t=[{...cards[a],slot:'Attacker'},{...cards[b],slot:'Defender'},{...cards[d],slot:'Goalkeeper'}],s=t.reduce((v,c)=>v+effective(c,c.slot),0);if(s>bestScore){best=t;bestScore=s}}return best}
+function botTeam(){let pool=newPack(),best=null,top=-1;for(let a=0;a<3;a++)for(let b=a+1;b<4;b++)for(let c=b+1;c<5;c++){let t=fitTeam([pool[a],pool[b],pool[c]]),s=t.reduce((n,x)=>n+effective(x,x.slot),0);if(s>top){top=s;best=t}}return best}
+function renderTeam(id,team){$(id).innerHTML=team.map(c=>`<div class="lineup-item"><span>${c.emoji}</span><span><b>${c.slot==='Goalkeeper'?'GK':c.slot==='Defender'?'DEF':'ATK'}</b> ${c.name}<br><small>${c.power} ⚡ · ${c.rarity}${c.role!==c.slot&&c.role!=='All'?' · Out of role':''}</small></span></div>`).join('')}
+$('confirm').onclick=()=>{if(selected.size!==3)return;yTeam=fitTeam([...selected].map(i=>pack[i]));bTeam=botTeam();renderTeam('yourList',yTeam);renderTeam('botList',bTeam);scene('versus')};
+$('start').onclick=start;$('again').onclick=start;$('home').onclick=()=>scene('menu');
+$('rules').onclick=()=>{$('rulesDialog').showModal()};$('closeRules').onclick=()=>$('rulesDialog').close();
+const positions={you:[[37,32],[26,70],[9,50]],bot:[[63,68],[74,30],[91,50]]};
+let sprites={you:[],bot:[]},ball=$('ball');
+function move(el,x,y){el.style.left=Math.max(4,Math.min(96,x))+'%';el.style.top=Math.max(8,Math.min(92,y))+'%'}
+function setBall(x,y){move(ball,x,y)}
+function sideTeam(side){return side==='you'?yTeam:bTeam}
+function opponent(side){return side==='you'?'bot':'you'}
+function direction(side){return side==='you'?1:-1}
+function locationOf(side,slot){return positions[side][slot]}
+function setupField(){for(const e of $('field').querySelectorAll('.player'))e.remove();sprites={you:[],bot:[]};for(const side of ['you','bot'])sideTeam(side).forEach((c,i)=>{let e=document.createElement('div');e.className='player '+side;e.innerHTML=`<div class="icon">${c.emoji}</div><div class="label">${['ATK','DEF','GK'][i]}</div><div class="card-mark"></div>`;$('field').append(e);move(e,...positions[side][i]);sprites[side].push(e)});setBall(50,50)}
+function resetPlayers(){for(const side of ['you','bot'])sprites[side].forEach((e,i)=>{if(!e.classList.contains('sentoff'))move(e,...positions[side][i])})}
+function say(s){$('comment').textContent=s}
+function log(s){let tag=document.createElement('span');tag.textContent=s;$('feed').append(tag);while($('feed').children.length>5)$('feed').firstChild.remove()}
+function stat(side,idx){let c=sideTeam(side)[idx];return effective(c,c.slot)}
+function alive(side,idx){return !sprites[side][idx].classList.contains('sentoff')}
+function actor(side,preferred){if(alive(side,preferred))return preferred;let candidates=[0,1,2].filter(i=>alive(side,i));return candidates.length?pick(candidates):2}
+function success(power,opp,base=.56){return Math.random()<Math.max(.07,Math.min(.96,base+(power-opp)*.006))}
+let matchScore,goals=0,events=0,yellows,scoreLimit=3;
+function updateScore(){$('score').textContent=`${matchScore.you} : ${matchScore.bot}`}
+async function commentary(message,delay=1050){say(message);await wait(delay)}
+async function kickTo(side,idx,x,y){let e=sprites[side][idx];move(e,x,y);setBall(x+direction(side)*3,y);await wait(850)}
+// Referee and VAR are deliberately asynchronous: the match genuinely waits.
+async function referee(title,detail,ms=1400,timer=false){
+ $('refTitle').textContent=title;$('refSub').textContent=detail;$('refTimer').textContent='';$('refOverlay').classList.add('show');
+ if(timer){for(let n=5;n>=1;n--){$('refTimer').textContent=n;await wait(1000)}}else await wait(ms);
+ $('refOverlay').classList.remove('show');$('refTimer').textContent='';
+}
+function available(side){return [0,1,2].filter(i=>alive(side,i))}
+function bestPenaltyTaker(side){let ids=available(side);return ids.sort((a,b)=>{let c=sideTeam(side);return (effective(c[b],'Attacker')+(c[b].rarity==='Legendary'?12:0))-(effective(c[a],'Attacker')+(c[a].rarity==='Legendary'?12:0))})[0]??2}
+function markCard(side,idx,kind){sprites[side][idx].querySelector('.card-mark').textContent=kind==='red'?'🟥':kind==='yellow'?'🟨':'';if(kind==='red')sprites[side][idx].classList.add('sentoff')}
+async function varCheck(reason,overturnChance=.28){
+ await referee('📺 VAR CHECK',reason+' · Checking the replay…',0,true);
+ let overturned=Math.random()<overturnChance;
+ await referee(overturned?'📺 VAR: DECISION OVERTURNED':'📺 VAR: DECISION STANDS',overturned?'NO FOUL / NO PENALTY — play continues.':'The referee confirms the original decision.',1800);
+ log(overturned?'📺 VAR OVERTURNED':'📺 VAR CONFIRMED');return overturned;
+}
+async function foul(tacklerSide,tacklerIdx,attackingSide,x,y){
+ let defender=sideTeam(tacklerSide)[tacklerIdx],attacker=sideTeam(attackingSide)[actor(attackingSide,0)];
+ const inBox=attackingSide==='you'?x>67:x<33;
+ const reasons=['late sliding tackle','reckless challenge','shirt pulling','trip from behind','dangerous tackle'];
+ const reason=pick(reasons);
+ await referee('📣 WHISTLE! FOUL!',`${defender.name}: ${reason} on ${attacker.name}.`,1700);
+ say(`🚨 ${defender.name} commits a foul: ${reason}!`);log('🚨 FOUL');
+ // Review a minority of controversial calls; a reversal leaves the previous possession intact.
+ if(Math.random()<(inBox?.46:.17)){
+  let overturned=await varCheck(inBox?'Possible penalty inside the box':'Checking whether contact was legal');
+  if(overturned){await commentary('📺 NO FOUL! The original call is cancelled.',1250);return {side:attackingSide,idx:actor(attackingSide,0),kickoff:false}}
+ }
+ const serious=reason==='dangerous tackle'||(reason==='trip from behind'&&Math.random()<.24);
+ const secondYellow=yellows[tacklerSide][tacklerIdx]>=1;
+ // A card is not automatic for every foul.
+ const caution=serious||secondYellow||Math.random()<.64;
+ if(caution){
+  let red=serious&&Math.random()<.56;
+  if(red&&Math.random()<.45){let reverse=await varCheck(`Checking possible straight red card for ${defender.name}`,.38);if(reverse)red=false}
+  if(red){markCard(tacklerSide,tacklerIdx,'red');await referee('🟥 STRAIGHT RED CARD!',`${defender.name} is sent off for a dangerous tackle!`,2200);log(`🟥 ${defender.name} OFF`)}
+  else{yellows[tacklerSide][tacklerIdx]++;if(yellows[tacklerSide][tacklerIdx]>=2){markCard(tacklerSide,tacklerIdx,'red');await referee('🟥 SECOND YELLOW → RED!',`${defender.name} is sent off after a second caution.`,2200);log(`🟥 ${defender.name} OFF`)}else{markCard(tacklerSide,tacklerIdx,'yellow');await referee('🟨 YELLOW CARD',`${defender.name} booked for ${reason}.`,1500);log(`🟨 ${defender.name}`)}}
+ }else await commentary('📣 Free kick awarded. No card shown.',900);
+ if(inBox){await referee('🎯 PENALTY AWARDED!',`${attackingSide==='you'?'YOUR TEAM':'BOT'} gets a spot kick!`,1500);return {side:attackingSide,idx:bestPenaltyTaker(attackingSide),penalty:true}}
+ // Free kick: place ball at foul location, then restart with attacking team.
+ let idx=actor(attackingSide,0);move(sprites[attackingSide][idx],x,y);setBall(x,y);
+ await referee('⚽ FREE KICK',`${sideTeam(attackingSide)[idx].name} prepares the restart.`,1250);
+ return {side:attackingSide,idx,kickoff:false}
+}
+async function penaltyKick(side){
+ let idx=bestPenaltyTaker(side),other=opponent(side),keeperIdx=actor(other,2),c=sideTeam(side)[idx],gk=sideTeam(other)[keeperIdx];
+ let spotX=side==='you'?76:24,goalX=side==='you'?96:4,keeperX=side==='you'?91:9;
+ $('penaltySpot').style.left=spotX+'%';$('penaltySpot').style.top='50%';$('penaltySpot').classList.add('show');
+ resetPlayers();move(sprites[side][idx],spotX-direction(side)*7,50);move(sprites[other][keeperIdx],keeperX,50);setBall(spotX,50);
+ await referee('🎯 PENALTY KICK',`${c.emoji} ${c.name} vs ${gk.emoji} ${gk.name}`,1700);
+ await referee('⚽ THE RUN-UP…',`${c.name} prepares to shoot!`,1100);
+ await referee('🥅 SHOOT!',`${c.name} strikes the ball!`,650);
+ let attack=effective(c,'Attacker'),defence=effective(gk,'Goalkeeper');
+ let chance=Math.max(.18,Math.min(.95,.74+(attack-defence)*.005+(c.name==='Phoenix'?.08:0)+(keeperIdx!==2?.10:0)));
+ let scored=Math.random()<chance;
+ setBall(goalX,random(42,58));move(sprites[other][keeperIdx],keeperX,scored?random(35,65):random(42,58));await wait(1050);
+ $('penaltySpot').classList.remove('show');
+ if(scored){matchScore[side]++;goals++;updateScore();log(`${side==='you'?'YOU':'BOT'} 🎯 PENALTY GOAL`);await referee('🔥 PENALTY SCORED!',`${c.name} beats the goalkeeper!`,2050);return {side:other,idx:actor(other,0),kickoff:true}}
+ log(`${other==='you'?'YOU':'BOT'} 🧤 PENALTY SAVE`);await referee('🧤 PENALTY SAVED!',`${gk.name} makes an incredible save!`,2050);
+ const gx=other==='you'?12:88;move(sprites[other][keeperIdx],gx,50);setBall(gx+direction(other)*3,50);
+ return {side:other,idx:keeperIdx,kickoff:false}
+}
+async function shot(side,idx,x,y,penalty=false){
+ if(penalty)return penaltyKick(side);
+ let other=opponent(side),c=sideTeam(side)[idx],keeperIdx=actor(other,2),gk=sideTeam(other)[keeperIdx],d=direction(side),goalX=side==='you'?95:5;
+ await commentary(`💥 ${c.emoji} ${c.name} SHOOTS!`,1000);
+ move(sprites[side][idx],x+d*3,y);setBall(goalX,random(42,58));await wait(900);
+ let a=effective(c,c.slot),def=stat(other,keeperIdx),chance=.55;
+ if(c.name==='Phoenix')chance+=.13;
+ chance=Math.max(.09,Math.min(.94,chance+(a-def)*.006+(keeperIdx!==2?.12:0)));
+ let scored=Math.random()<chance;
+ move(sprites[other][keeperIdx],other==='you'?10:90,scored?random(35,65):50);await wait(500);
+ if(scored){matchScore[side]++;goals++;updateScore();log(`${side==='you'?'YOU':'BOT'} ⚽ GOAL`);await commentary(`🔥 GOOOOAL! ${c.name} SCORES!`,2100);return {side:other,idx:actor(other,0),kickoff:true}}
+ log(`${other==='you'?'YOU':'BOT'} 🧤 SAVE`);await commentary(`🧤 ${gk.name.toUpperCase()} SAVES IT!`,1400);
+ const gx=other==='you'?12:88;move(sprites[other][keeperIdx],gx,50);setBall(gx+direction(other)*3,50);await wait(550);
+ return {side:other,idx:keeperIdx,kickoff:false}
+}
+
+async function sequence(possession){if(possession.penalty)return penaltyKick(possession.side);
+ let side=possession.side,idx=actor(side,possession.idx),other=opponent(side),team=sideTeam(side),c=team[idx],d=direction(side);
+ events++;$('attackCount').textContent=`PLAY ${events} · FIRST TO 3`;
+ let x=Number.parseFloat(sprites[side][idx].style.left)||locationOf(side,idx)[0],y=Number.parseFloat(sprites[side][idx].style.top)||50;
+ if(possession.kickoff){resetPlayers();x=side==='you'?46:54;y=50;move(sprites[side][idx],x,y);setBall(x+d*3,y);await commentary(`⚽ ${c.name} takes the kickoff!`,1000)}
+ else{setBall(x+d*3,y);await commentary(`⚽ ${c.emoji} ${c.name} has possession!`,900)}
+ // Rare keeper rush: impressive but sometimes disastrous.
+ if(idx===2&&Math.random()<.055){await commentary(`😱 ${c.name} the GOALKEEPER charges upfield!`,1100);x=side==='you'?52:48;y=random(30,70);await kickTo(side,idx,x,y);let opponentStrength=stat(other,actor(other,1));if(!success(stat(side,idx),opponentStrength,.68)){await commentary(`😬 ${c.name} loses the ball! The goal is exposed!`,1150);return {side:other,idx:actor(other,0),kickoff:false}}await commentary(`✨ ${c.name} dribbles past everyone!`,950);x=side==='you'?76:24;await kickTo(side,idx,x,50);return shot(side,idx,x,50)}
+ // Keeper distributes the ball after saves.
+ if(idx===2){let target=actor(side,Math.random()<.7?1:0),receiver=team[target];let tx=side==='you'?31:69,ty=target===1?70:32;await commentary(`🎯 ${c.name} passes out to ${receiver.name}!`,950);move(sprites[side][target],tx,ty);setBall(tx+d*3,ty);await wait(850);idx=target;c=receiver;x=tx;y=ty}
+ // Advance possession while ball stays attached to the carrier.
+ let dest=side==='you'?Math.min(74,x+random(12,22)):Math.max(26,x-random(12,22));y=Math.max(25,Math.min(75,y+random(-15,15)));
+ await commentary(`💨 ${c.name} dribbles forward!`,850);await kickTo(side,idx,dest,y);x=dest;
+ let enemyIdx=actor(other,1),enemy=sideTeam(other)[enemyIdx],defX=x+d*8;
+ move(sprites[other][enemyIdx],defX,y+random(-7,7));await commentary(`🛡️ ${enemy.name} moves in to tackle!`,950);
+ if(Math.random()<.065){return foul(other,enemyIdx,side,x,y)}
+ if(!success(stat(side,idx),stat(other,enemyIdx),.69)){await commentary(`🛑 ${enemy.name} WINS THE BALL!`,1150);log(`${other==='you'?'YOU':'BOT'} 🛡️ TACKLE`);setBall(defX-direction(side)*3,y);return {side:other,idx:enemyIdx,kickoff:false}}
+ // A pass is an option, not mandatory. Higher cards tend to execute cleaner moves.
+ let partner=[0,1].filter(i=>i!==idx&&alive(side,i));
+ if(partner.length&&Math.random()<.45){let next=partner[0],rc=team[next],nx=side==='you'?Math.min(78,x+9):Math.max(22,x-9),ny=y<50?72:28;
+ await commentary(`🎯 ${c.name} passes to ${rc.name}!`,900);move(sprites[side][next],nx,ny);setBall(nx+d*3,ny);await wait(800);
+ if(!success(stat(side,idx),stat(other,enemyIdx),.88)){await commentary(`❌ ${enemy.name} intercepts the pass!`,950);setBall(defX,y);return {side:other,idx:enemyIdx,kickoff:false}}
+ idx=next;c=rc;x=nx;y=ny
+ }else{await commentary(`✨ ${c.name} beats the defender with a skill move!`,900);x=side==='you'?Math.min(79,x+10):Math.max(21,x-10);await kickTo(side,idx,x,y)}
+ // Some possessions continue; avoid endless shots from midfield.
+ if((side==='you'&&x<55)||(side==='bot'&&x>45)){if(Math.random()<.28)return {side,idx,kickoff:false}}
+ return shot(side,idx,x,y)
+}
+async function play(){if(running)return;running=true;$('kickoff').disabled=true;scene('match');setupField();$('feed').replaceChildren();$('refOverlay').classList.remove('show');$('penaltySpot').classList.remove('show');matchScore={you:0,bot:0};events=0;goals=0;yellows={you:[0,0,0],bot:[0,0,0]};updateScore();$('attackCount').textContent='KICKOFF';await commentary('🏟️ The teams take the field!',1200);await commentary('3… 2… 1… KICKOFF!',1300);
+ let possession={side:Math.random()<.5?'you':'bot',idx:0,kickoff:true};
+ // Cap to avoid an endless match; a final sudden-death phase still determines a winner.
+ while(Math.max(matchScore.you,matchScore.bot)<scoreLimit&&events<42){possession=await sequence(possession);if(Math.max(matchScore.you,matchScore.bot)>=scoreLimit)break;await wait(600)}
+ if(Math.max(matchScore.you,matchScore.bot)<scoreLimit){await referee('⏱️ EXTRA TIME', 'First to three still wins — golden-goal attacks!',1700);while(Math.max(matchScore.you,matchScore.bot)<scoreLimit&&events<65){possession=await sequence(possession);await wait(350)}if(Math.max(matchScore.you,matchScore.bot)<scoreLimit){await referee('🏁 FINAL SHOOTOUT','The winner will be decided by penalties.',1600);while(Math.max(matchScore.you,matchScore.bot)<scoreLimit){let side=matchScore.you<=matchScore.bot?'you':'bot';possession=await penaltyKick(side)}}}
+ let win=matchScore.you>matchScore.bot;$('medal').textContent=win?'🏆':'🥈';$('winner').textContent=win?'YOU WIN!':'BOT WINS!';$('finalScore').textContent=`${matchScore.you} : ${matchScore.bot}`;$('resultText').textContent=win?'Your beasts brought the trophy home!':'Great match! Try a new five-card pack.';let m=[...yTeam].sort((a,b)=>b.power-a.power)[0];$('mvp').textContent=`⭐ YOUR MVP: ${m.emoji} ${m.name} (${m.rarity}, ${m.power} power)`;scene('result');running=false;$('kickoff').disabled=false}
+$('kickoff').onclick=play;
+
+
+// --- v0.6 Online tournaments: Supabase RPC-backed state, 2–10 players ---
+const BB_SUPABASE_URL='https://nutmvzwiopoxxkqrbwmx.supabase.co';
+const BB_SUPABASE_KEY='sb_publishable_Q3aW4Mh-VGu40z-s4cCt1Q_E-76agGl';
+const on={session:null,state:null,timer:null,busy:false,view:'',selection:[],reveals:new Set(),rewardMode:false,animationKey:'',animating:false};
+const onlineScenes=['onlineSetup','onlineLobby','onlineDraft','onlineVersus','onlineGame','onlineBracket'];
+function onlineScene(id){if(on.view===id)return;on.view=id;scene(id)}
+function onMessage(id,msg){$(id).textContent=msg||''}
+function onSaveConfig(){localStorage.setItem('bb_name',$('onName').value.trim())}
+function onConfig(){return {url:BB_SUPABASE_URL,key:BB_SUPABASE_KEY}}
+async function onRPC(fn,args){let {url,key}=onConfig();if(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url)||!key)throw Error('Enter a valid Supabase project URL and public key.');let r=await fetch(url+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'apikey':key,'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(args)});let data=await r.json();if(!r.ok)throw Error(data.message||'Connection failed');return data}
+function onCredentials(){if(!on.session)throw Error('Join a lobby first');return {p_id:on.session.id,p_secret:on.session.secret}}
+function onOpen(){onSaveConfig();onlineScene('onlineSetup')}
+$('onlineBtn').onclick=()=>{on.view='';$('onName').value=localStorage.getItem('bb_name')||'';onlineScene('onlineSetup')};
+$('onBack').onclick=()=>{on.view='';scene('menu')};
+$('onLeave').onclick=()=>{onStop();on.session=null;sessionStorage.removeItem('bb_session');on.view='';scene('menu')};
+$('onReturn').onclick=()=>{onStop();on.view='';scene('menu')};
+async function onEnter(fn){if(on.busy)return;on.busy=true;onMessage('onError','');try{onSaveConfig();let name=$('onName').value.trim();if(name.length<2||name.length>10)throw Error('Nickname must be 2–10 characters.');let code=$('onCode').value.trim();if(fn==='bb_join'&&!/^[0-9]{6}$/.test(code))throw Error('Enter a valid 6-digit lobby code.');let args=fn==='bb_create'?{p_name:name}:{p_name:name,p_code:code};let result=await onRPC(fn,args);on.session=result;sessionStorage.setItem('bb_session',JSON.stringify(result));on.view='';onlineScene('onlineLobby');await onRefresh();onStartPoll()}catch(e){onMessage('onError',e.message)}finally{on.busy=false}}
+$('onCreate').onclick=()=>onEnter('bb_create');$('onJoin').onclick=()=>onEnter('bb_join');
+function onStartPoll(){onStop();on.timer=setInterval(()=>onRefresh().catch(()=>{}),1800)}
+function onStop(){if(on.timer)clearInterval(on.timer);on.timer=null}
+async function onAction(fn,args={},errorId='onLobbyError'){if(on.busy)return;on.busy=true;onMessage(errorId,'');try{await onRPC(fn,{...onCredentials(),...args});await onRefresh()}catch(e){onMessage(errorId,e.message)}finally{on.busy=false}}
+$('onStart').onclick=()=>onAction('bb_start');$('onNext').onclick=()=>onAction('bb_next');
+function onAnimal(name){return roster.find(c=>c.name===name)}
+function onRenderLobby(s){$('onRoomCode').textContent=s.code;$('onPeople').innerHTML=s.players.map((p,i)=>`<div class="online-card">${i+1}. ${p.id===s.host?'👑 ':''}${escapeHTML(p.name)} ${p.id===s.me.id?'(YOU)':''}</div>`).join('');$('onLobbyInfo').textContent=`${s.players.length}/10 PLAYERS · Waiting for host to start`;$('onStart').style.display=s.host===s.me.id?'block':'none';$('onStart').disabled=s.players.length<2}
+function escapeHTML(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function onDraftKey(s){return s.round+':'+s.me.stage}
+let lastDraftKey='',lastDraftRender='';
+function onRenderDraft(s){
+ let isReward=s.me.stage==='reward',key=onDraftKey(s);
+ if(lastDraftKey!==key){lastDraftRender='';lastDraftKey=key;on.selection=isReward?[...s.me.team]:[];on.reveals=new Set();on.rewardMode=isReward}
+ $('onDraftTitle').textContent=isReward?'🏆 VICTORY REWARD · +2 CARDS':'🎁 ROUND '+s.round+' · MYSTERY PACK';
+ $('onDraftInfo').textContent=isReward?'Flip both reward cards. Keep your team or swap up to two animals.':'Flip all FIVE mystery cards, then choose exactly THREE animals.';
+ let shown=isReward?s.me.reward:s.me.cards;
+  if(!Array.isArray(shown)||!shown.length){$('onDraftError').textContent='Cards are not ready yet. Waiting for tournament data…';return;}
+  if(shown.some(name=>!onAnimal(name))){$('onDraftError').textContent='Card data could not be loaded. Please refresh the page.';return;}
+  $('onDraftError').textContent='';
+ // Preserve card DOM across Supabase polling: rebuilding it mid-tap can break iOS touch events.
+ const renderSignature=JSON.stringify([key,shown,[...on.reveals].sort(),on.selection]);
+ if(renderSignature===lastDraftRender)return;
+ lastDraftRender=renderSignature;
+ $('onChoices').className=isReward?'card-grid online-reward-grid':'card-grid';
+ $('onChoices').innerHTML=shown.map((name,i)=>{let c=onAnimal(name),rev=on.reveals.has(i),sel=on.selection.includes(name);return `<button type="button" class="online-mystery rarity-${c.rarity} ${rev?'revealed':''} ${sel?'selected':''}" data-i="${i}" aria-label="${rev?c.name:'Reveal mystery card '+(i+1)}">${rev?`<div class="rarity">${c.rarity.toUpperCase()}</div><div class="animal">${c.emoji}</div><div class="name">${c.name}</div><div class="role">${c.role==='All'?'ALL ROLES':c.role}</div><div class="power">${c.power} ⚡</div>`:`<div class="mystery-q">?</div><div class="mystery-sub">MYSTERY</div>`}${sel?'<span class="online-check">✓</span>':''}</button>`}).join('');
+ [...$('onChoices').children].forEach(b=>b.onclick=()=>{let i=+b.dataset.i,name=shown[i];if(!on.reveals.has(i)){on.reveals.add(i);if(name==='Phoenix')b.classList.add('phoenix-reveal')}else if(on.reveals.size===shown.length){if(on.selection.includes(name)){if(!isReward)on.selection=on.selection.filter(n=>n!==name)}else if(on.selection.length<3)on.selection.push(name)}onRenderDraft(s)});
+ $('onTeam').innerHTML='<b>YOUR THREE ANIMALS</b><p class="small">'+on.selection.length+'/3 selected</p>'+on.selection.map(name=>{let c=onAnimal(name);return `<div class="online-card">${c.emoji} ${c.name} · ${c.power} ⚡ <button class="btn alt" style="padding:4px;font-size:12px;margin-top:5px" data-name="${c.name}">REMOVE</button></div>`}).join('')+(isReward?'<p class="small">Tap REMOVE to free a slot for a reward card.</p>':'');
+ [...$('onTeam').querySelectorAll('[data-name]')].forEach(b=>b.onclick=()=>{on.selection=on.selection.filter(n=>n!==b.dataset.name);onRenderDraft(s)});
+ let swaps=isReward?on.selection.filter(n=>!s.me.team.includes(n)).length:0;
+ $('onSubmit').disabled=on.reveals.size!==shown.length||on.selection.length!==3||swaps>2;
+ $('onSubmit').textContent=isReward?`⚡ CONFIRM UPGRADES (${swaps}/2 SWAPS)`:'⚽ LOCK TEAM';
+}
+$('onSubmit').onclick=()=>onAction('bb_submit',{p_team:on.selection},'onDraftError');
+function onRenderBracket(s){let champ=s.players.find(p=>!p.eliminated);$('onBracketTitle').textContent=s.status==='finished'?'🏆 TOURNAMENT CHAMPION!':`🏆 ROUND ${s.round} COMPLETE`;
+ $('onBracketInfo').textContent=s.status==='finished'?`👑 ${champ?champ.name:'CHAMPION'} WINS THE TOURNAMENT!`:(s.me.eliminated?'You were eliminated. Watch who advances!':'YOU ADVANCE! 🎁 Two reward cards await next round!');
+ $('onBracketGames').innerHTML=s.games.filter(g=>g.round===s.round).map(g=>`<div class="online-card">${escapeHTML(g.a_name)} ${g.b_name?'vs '+escapeHTML(g.b_name):'· BYE'}<br><b>${g.b_name?`${g.score_a} : ${g.score_b}`:'ADVANCES AUTOMATICALLY'}</b><br>🏆 ${escapeHTML((s.players.find(p=>p.id===g.winner)||{}).name||'Pending')}</div>`).join('');
+ $('onNext').style.display=s.status==='round_done'&&s.host===s.me.id?'block':'none';$('onNext').textContent='🎁 NEXT ROUND · +2 CARDS';
+}
+function onMatchFor(s){return s.games.find(g=>g.round===s.round&&(g.a===s.me.id||g.b===s.me.id))}
+function onSetPos(el,x,y){el.style.left=Math.max(3,Math.min(97,x))+'%';el.style.top=Math.max(7,Math.min(93,y))+'%'}
+async function onAnimate(s,g){
+ if(on.animationKey===g.id)return;
+ on.animationKey=g.id;on.animating=true;
+ const mine=g.a===s.me.id,teams=[mine?g.a_team:g.b_team,mine?g.b_team:g.a_team],names=[mine?g.a_name:g.b_name,mine?g.b_name:g.a_name],finals=[mine?g.score_a:g.score_b,mine?g.score_b:g.score_a];
+ $('onVersusTitle').textContent=`${names[0]} VS ${names[1]}`;
+ $('onVersusMine').textContent=`🔵 ${names[0].toUpperCase()}`;$('onVersusRival').textContent=`🔴 ${names[1].toUpperCase()}`;
+ const lineupHTML=arr=>arr.map((name,i)=>{const c=onAnimal(name)||roster[0],slot=['ATK','DEF','GK'][i];return `<div class="lineup-item"><span>${c.emoji}</span><span><b>${slot}</b> ${escapeHTML(c.name)}<br><small>${c.power} ⚡ · ${c.rarity}${c.role!=='All'&&c.role!==['Attacker','Defender','Goalkeeper'][i]?' · Out of role':''}</small></span></div>`}).join('');
+ $('onVersusMineCards').innerHTML=lineupHTML(teams[0]);$('onVersusRivalCards').innerHTML=lineupHTML(teams[1]);
+ onlineScene('onlineVersus');await new Promise(resolve=>{$('onVersusKick').onclick=resolve});if(on.animationKey!==g.id){on.animating=false;return}onlineScene('onlineGame');
+ $('onGameTitle').textContent=`${names[0]} VS ${names[1]}`;$('onMyName').textContent=names[0]+' ';$('onOpponentName').textContent=' '+names[1];$('onScore').textContent='0 : 0';$('onContinue').style.display='none';$('onGamePhase').textContent='KICKOFF';
+ const field=$('onPitch');field.querySelectorAll('.player').forEach(e=>e.remove());const players=[[],[]],base=[[[37,32],[26,70],[9,50]],[[63,68],[74,30],[91,50]]];
+ for(let side=0;side<2;side++)for(let i=0;i<3;i++){let c=onAnimal(teams[side][i])||roster[0],e=document.createElement('div');e.className='player '+(side===0?'you':'bot');e.innerHTML=`<div class="icon">${c.emoji}</div><div class="label"></div><div class="card-mark"></div>`;e.querySelector('.label').textContent=names[side].toUpperCase();if(names[side].length>7)e.querySelector('.label').style.fontSize='7px';field.append(e);onSetPos(e,...base[side][i]);players[side].push(e)}
+ const ball=$('onBall'),overlay=$('onRefOverlay'),spot=$('onPenaltySpot'),comment=t=>$('onGameComment').textContent=t,log=t=>{let x=document.createElement('span');x.textContent=t;$('onGameSub').append(x);while($('onGameSub').children.length>5)$('onGameSub').firstChild.remove()};
+ $('onGameSub').replaceChildren();spot.classList.remove('show');overlay.classList.remove('show');onSetPos(ball,50,50);
+ // Deterministic shared match choreography; Supabase remains authoritative for final score.
+ let seed=[...String(g.id)].reduce((v,c)=>(Math.imul(v,31)+c.charCodeAt(0))>>>0,7);
+ const rng=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+ const rand=(a,b)=>a+(b-a)*rng(),delay=ms=>wait(ms),card=(z,i)=>onAnimal(teams[z][i])||roster[0];
+ const moveP=(z,i,x,y)=>onSetPos(players[z][i],x,y),moveBall=(x,y)=>onSetPos(ball,x,y),dir=z=>z===0?1:-1;
+ const still=()=>on.view==='onlineGame'&&on.animationKey===g.id;
+ const referee=async(title,detail,ms=1650)=>{overlay.classList.add('show');$('onRefTitle').textContent=title;$('onRefSub').textContent=detail;$('onRefTimer').textContent='';comment(title+' · '+detail);await delay(ms);overlay.classList.remove('show')};
+ const reset=()=>{for(let z=0;z<2;z++)for(let i=0;i<3;i++)moveP(z,i,...base[z][i]);moveBall(50,50)};
+ const scores=[0,0],totalGoals=finals[0]+finals[1],nPlays=Math.max(12,totalGoals*3+5);
+ // The goal schedule cannot reach three for either side before its final scheduled goal.
+ const goalSides=[];for(let z=0;z<2;z++)for(let i=0;i<finals[z];i++)goalSides.push(z);
+ for(let i=goalSides.length-1;i>0;i--){let j=Math.floor(rng()*(i+1));[goalSides[i],goalSides[j]]=[goalSides[j],goalSides[i]]}
+ const goalTurns=new Map(),turns=Array.from({length:nPlays-3},(_,i)=>i+2);
+ for(let i=turns.length-1;i>0;i--){let j=Math.floor(rng()*(i+1));[turns[i],turns[j]]=[turns[j],turns[i]]}
+ turns.slice(0,goalSides.length).sort((a,b)=>a-b).forEach((t,i)=>goalTurns.set(t,goalSides[i]));
+ let poss=Math.floor(rng()*2),idx=0,kickoff=true,x=50,y=50;
+ const carrier=()=>{moveP(poss,idx,x,y);moveBall(x+dir(poss)*3,y)};
+ const transfer=(newSide,newIdx,newX,newY)=>{poss=newSide;idx=newIdx;x=newX;y=newY;carrier()};
+ comment('🏟️ The teams take the field!');await delay(1200);comment('3… 2… 1… KICKOFF!');await delay(1350);
+ for(let k=0;k<nPlays;k++){
+  if(!still()){on.animating=false;return}if(scores[0]>=3||scores[1]>=3)break;
+  $('onGamePhase').textContent=`PLAY ${k+1} · FIRST TO 3`;
+  const scoring=goalTurns.has(k),target=goalTurns.get(k);
+  if(kickoff){reset();idx=0;x=poss===0?46:54;y=50;carrier();comment(`⚽ ${card(poss,idx).name} takes the kickoff!`);await delay(1050);kickoff=false}
+  else{carrier();comment(`⚽ ${card(poss,idx).emoji} ${card(poss,idx).name} has possession!`);await delay(900)}
+  // Goalkeeper saves keep possession, then pass forward just as in VS BOT.
+  if(idx===2){let next=rng()<.7?1:0,tx=poss===0?31:69,ty=next===1?70:32;comment(`🎯 ${card(poss,2).name} passes out to ${card(poss,next).name}!`);moveP(poss,next,tx,ty);moveBall(tx+dir(poss)*3,ty);await delay(950);idx=next;x=tx;y=ty}
+  const d=dir(poss),advance=poss===0?Math.min(74,x+rand(12,22)):Math.max(26,x-rand(12,22));y=Math.max(25,Math.min(75,y+rand(-15,15)));
+  comment(`💨 ${card(poss,idx).name} dribbles forward!`);x=advance;carrier();await delay(900);
+  const other=1-poss,enemy=card(other,1),defX=Math.max(12,Math.min(88,x+d*8));moveP(other,1,defX,y+rand(-7,7));comment(`🛡️ ${enemy.name} moves in to tackle!`);await delay(950);
+  let outcome=rng();
+  // Do not teleport possession to a goal scorer: the ball must be visibly won or passed.
+  if(scoring&&poss!==target){comment(`🛑 ${enemy.name} WINS THE BALL!`);moveP(other,1,defX,y);moveBall(defX-dir(poss)*3,y);await delay(1100);log(`${names[other]} 🛡️ TACKLE`);transfer(other,1,defX,y);await delay(600)}
+  else if(!scoring&&outcome<.30){comment(`🛑 ${enemy.name} WINS THE BALL!`);moveP(other,1,defX,y);moveBall(defX-d*3,y);await delay(1100);log(`${names[other]} 🛡️ TACKLE`);transfer(other,1,defX,y);await delay(650);continue}
+  else if(!scoring&&outcome<.42){await referee('📣 WHISTLE! FOUL!',`${enemy.name} makes a late challenge on ${card(poss,idx).name}.`,1700);if(rng()<.45){players[other][1].querySelector('.card-mark').textContent='🟨';await referee('🟨 YELLOW CARD',`${enemy.name} is booked.`,1300);log(`🟨 ${enemy.name}`)}comment(`⚽ ${card(poss,idx).name} takes the free kick!`);carrier();await delay(1050)}
+  let z=poss,d2=dir(z),att=card(z,0),gk=card(1-z,2);
+  if(idx!==0){let nx=z===0?Math.min(78,x+9):Math.max(22,x-9),ny=y<50?72:28;comment(`🎯 ${card(z,idx).name} passes to ${att.name}!`);moveP(z,0,nx,ny);moveBall(nx+d2*3,ny);await delay(950);idx=0;x=nx;y=ny}
+  else{comment(`✨ ${att.name} beats the defender with a skill move!`);x=z===0?Math.min(79,x+10):Math.max(21,x-10);carrier();await delay(900)}
+  if(scoring&&z!==target){ // A visible interception changes control before the scoring attack.
+   let o=1-z,xx=x+d2*5;comment(`🛡️ ${card(o,1).name} intercepts the ball!`);moveP(o,1,xx,y);moveBall(xx-dir(z)*3,y);await delay(950);transfer(o,1,xx,y);await delay(650);z=o;d2=dir(z);att=card(z,0);gk=card(1-z,2);
+   comment(`🎯 ${card(z,1).name} passes to ${att.name}!`);x=z===0?68:32;idx=0;carrier();await delay(1000);
+  }
+  if(!scoring&&rng()<.32){comment(`❌ ${att.name} loses control! ${card(1-z,1).name} clears it!`);let xx=x+d2*4;moveP(1-z,1,xx,y);moveBall(xx-d2*3,y);await delay(1150);transfer(1-z,1,xx,y);continue}
+  const penalty=scoring&&rng()<.13;
+  if(penalty){await referee('📣 PENALTY AWARDED!',`${att.name} is brought down inside the box!`,1700);$('onGamePhase').textContent='PENALTY';let px=z===0?76:24;spot.style.left=px+'%';spot.style.top='50%';spot.classList.add('show');reset();let taker=[0,1,2].sort((a,b)=>effective(card(z,b),'Attacker')-effective(card(z,a),'Attacker'))[0];idx=taker;moveP(z,taker,px-d2*7,50);moveP(1-z,2,z===0?91:9,50);moveBall(px,50);await referee('🎯 PENALTY KICK',`${card(z,taker).name} vs ${gk.name}`,1600);comment('3… 2… 1… PENALTY KICK!');await delay(1750);spot.classList.remove('show');att=card(z,taker)}
+  comment(`💥 ${att.name} SHOOTS!`);moveBall(z===0?95:5,rand(43,57));moveP(1-z,2,z===0?91:9,rand(38,62));await delay(1050);
+  if(scoring){scores[z]++;$('onScore').textContent=scores.join(' : ');$('onGamePhase').textContent='GOAL!';comment(`🔥 GOOOOAL! ${att.emoji} ${att.name} SCORES!`);log(`${names[z]} ⚽ GOAL · ${scores.join('–')}`);await delay(scores[z]>=3?700:2050);if(scores[z]>=3)break;poss=1-z;idx=0;kickoff=true}
+  else{comment(`🧤 ${gk.name.toUpperCase()} SAVES IT!`);log(`${names[1-z]} 🧤 SAVE`);let gx=1-z===0?12:88;moveP(1-z,2,gx,50);moveBall(gx+dir(1-z)*3,50);await delay(1250);poss=1-z;idx=2;x=gx;y=50}
+  await delay(500);
+ }
+ if(still()){reset();$('onScore').textContent=finals.join(' : ');$('onGamePhase').textContent='FULL TIME';comment(g.winner===s.me.id?'🏆 YOU WIN!':'💔 YOU LOSE!');log('🏁 Official result confirmed by tournament server');$('onContinue').style.display='block'}
+ on.animating=false;
+}
+$('onContinue').onclick=()=>{on.view='';if(on.state)onRenderBracket(on.state);onlineScene('onlineBracket')};
+async function onRefresh(){if(!on.session||on.busy)return;let s=await onRPC('bb_state',onCredentials());on.state=s;
+ if(s.status==='lobby'){onlineScene('onlineLobby');onRenderLobby(s);return}
+ if(s.status==='draft'||s.status==='reward'){on.animationKey='';on.animating=false;
+  if(s.me.stage==='draft'||s.me.stage==='reward'){onlineScene('onlineDraft');onRenderDraft(s)}else{onlineScene('onlineBracket');$('onBracketTitle').textContent='⏳ WAITING FOR PLAYERS';$('onBracketInfo').textContent='Team locked. Waiting for all surviving players to finish their draft.';$('onBracketGames').innerHTML=s.players.filter(p=>!p.eliminated).map(p=>`<div class="online-card">${escapeHTML(p.name)} · ${p.stage==='ready'?'✅ READY':'🎁 PICKING CARDS'}</div>`).join('');$('onNext').style.display='none'}return;
+ }
+ if(s.status==='playing'||s.status==='round_done'||s.status==='finished'){
+  let g=onMatchFor(s);
+  if(g&&g.b&&g.status==='done'&&!on.animationKey&&s.status==='round_done'){onAnimate(s,g);return}
+  if(on.animating||on.view==='onlineGame')return;
+  onlineScene('onlineBracket');onRenderBracket(s);
+ }
+}
+// Restore lobby session after accidental refresh.
+try{let ss=sessionStorage.getItem('bb_session');if(ss){on.session=JSON.parse(ss);$('onName').value=localStorage.getItem('bb_name')||'';on.view='';onRefresh().then(onStartPoll).catch(()=>{on.session=null})}}catch(e){}
+
+</script></body></html>
